@@ -1,8 +1,11 @@
 <script setup>
 
+import { AppState } from '@/AppState.js';
 import { artworkService } from '@/services/ArtworkService.js';
 import Pop from '@/utils/Pop.js';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
+
+const artworks = computed(() => AppState.artwork)
 
 onMounted(() => {
   getArtwork()
@@ -21,13 +24,13 @@ async function getArtwork() {
 </script>
 
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 card align-items-center shadow rounded elevation-3">
-      <img src="@/assets/img/cw-circle-logo.png" alt="CodeWorks Logo" class="rounded-circle">
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
-    </div>
+  <div class="container">
+    <section class="row">
+      <div v-for="art in artworks" :key="art.id" class="col-6 col-md-6 mb-3">
+        <img :src="art.imgUrls" :alt="`Poster for ${art.description}`" class="img-fluid rounded"
+          :title="art.description">
+      </div>
+    </section>
   </div>
 </template>
 
