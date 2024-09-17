@@ -7,7 +7,7 @@ class ArtworkService{
   async getArtwork() {
     const response = await api.get('api/artworks')
    
-    const newArtwork = response.data.map(artPojo => new Artwork(artPojo))
+    const newArtwork = response.data.artworks.map(artPojo => new Artwork(artPojo))
     AppState.artwork = newArtwork   
   }
 }
